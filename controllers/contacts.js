@@ -1,6 +1,8 @@
 const contacts = require("../models/contacts");
 
-const { HttpError, ctrlWrapper } = require("../helpers");
+// const { HttpError, ctrlWrapper } = require("../helpers/index");
+const { HttpError } = require("../helpers/HttpError");
+const { ctrlWrapper } = require("../helpers/ctrlWrapper");
 
 const getAll = async (req, res, next) => {
   const result = await contacts.listContacts();
@@ -20,7 +22,7 @@ const add = async (req, res) => {
   const body = req.body;
   const result = await contacts.addContact(body);
   if (!result) {
-    throw HttpError(400, "missing required name field");
+    throw HttpError();
   }
   return res.status(201).json({ result });
 };
@@ -37,8 +39,9 @@ const deleteById = async (req, res, next) => {
 
 const updateById = async (req, res) => {
   const { contactId } = req.params;
-  const result = await contacts.updateContact(contactId, req.body);
-  if (!req.body) {
+  const body = req.body;
+  const result = await contacts.updateContact(contactId, body);
+  if (!body) {
     throw HttpError(400, "missing fields");
   }
   if (!result) {
