@@ -30,7 +30,6 @@ const add = async (req, res) => {
 const deleteById = async (req, res, next) => {
   const { contactId } = req.params;
   const result = await contacts.removeContact(contactId);
-  console.log(result);
   if (!result) {
     throw HttpError(404, "Not found");
   }
