@@ -1,6 +1,5 @@
 const contacts = require("../models/contacts");
 
-// const { HttpError, ctrlWrapper } = require("../helpers/index");
 const { HttpError } = require("../helpers/HttpError");
 const { ctrlWrapper } = require("../helpers/ctrlWrapper");
 
@@ -24,7 +23,7 @@ const add = async (req, res) => {
   if (!result) {
     throw HttpError();
   }
-  return res.status(201).json({ result });
+  res.status(201).json(result);
 };
 
 const deleteById = async (req, res, next) => {
@@ -39,10 +38,10 @@ const deleteById = async (req, res, next) => {
 const updateById = async (req, res) => {
   const { contactId } = req.params;
   const body = req.body;
-  const result = await contacts.updateContact(contactId, body);
-  if (!body) {
-    throw HttpError(400, "missing fields");
-  }
+  const result = await contacts.updateContact(contactId, body, { new: true });
+  // if (!body) {
+  //   throw HttpError(400, "missing fields");
+  // }
   if (!result) {
     throw HttpError(404, "Not found");
   }

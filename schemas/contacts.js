@@ -1,5 +1,9 @@
 const Joi = require("joi");
 
+const emptyBody = Joi.object()
+  .min(1)
+  .messages({ "object.min": "Missing fields" });
+
 const addShema = Joi.object({
   name: Joi.string()
     .required()
@@ -14,4 +18,5 @@ const addShema = Joi.object({
 
 module.exports = {
   addShema,
+  emptyBody,
 };
