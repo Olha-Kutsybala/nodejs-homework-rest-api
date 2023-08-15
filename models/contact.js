@@ -29,6 +29,10 @@ const emptyBody = Joi.object()
   .min(1)
   .messages({ "object.min": "Missing fields" });
 
+const emptyBodyFavorite = Joi.object()
+  .min(1)
+  .messages({ "object.min": "Missing field favorite" });
+
 const addShema = Joi.object({
   name: Joi.string()
     .required()
@@ -47,8 +51,10 @@ const updateFavoriteSchema = Joi.object({ favorite: Joi.boolean().required() });
 const schemas = {
   addShema,
   emptyBody,
+  emptyBodyFavorite,
   updateFavoriteSchema,
 };
+
 const Contact = model("contact", ContactSchema);
 
 module.exports = {
