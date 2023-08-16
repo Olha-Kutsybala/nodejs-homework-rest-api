@@ -43,7 +43,7 @@ const addShema = Joi.object({
   email: Joi.string()
     .required()
     .messages({ "any.required": "missing required email field" }),
-  favorite: Joi.boolean().required(),
+  favorite: Joi.boolean(),
 });
 
 const updateFavoriteSchema = Joi.object({ favorite: Joi.boolean().required() });
