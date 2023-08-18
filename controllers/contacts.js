@@ -1,16 +1,16 @@
-const contacts = require("../models/contacts");
+const { Contact } = require("../models/contact");
 
 const { HttpError } = require("../helpers/HttpError");
 const { ctrlWrapper } = require("../helpers/ctrlWrapper");
 
 const getAll = async (req, res, next) => {
-  const result = await contacts.listContacts();
+  const result = await Contact.find();
   res.json(result);
 };
 
 const getById = async (req, res) => {
   const { contactId } = req.params;
-  const result = await contacts.getContactById(contactId);
+  const result = await Contact.findById(contactId);
   if (!result) {
     throw HttpError(404, "Not found");
   }
@@ -19,7 +19,7 @@ const getById = async (req, res) => {
 
 const add = async (req, res) => {
   const body = req.body;
-  const result = await contacts.addContact(body);
+  const result = await Contact.create(body);
   if (!result) {
     throw HttpError();
   }
@@ -28,7 +28,7 @@ const add = async (req, res) => {
 
 const deleteById = async (req, res, next) => {
   const { contactId } = req.params;
-  const result = await contacts.removeContact(contactId);
+  const result = await Contact.findByIdAndRemove(contactId);
   if (!result) {
     throw HttpError(404, "Not found");
   }
@@ -38,10 +38,23 @@ const deleteById = async (req, res, next) => {
 const updateById = async (req, res) => {
   const { contactId } = req.params;
   const body = req.body;
-  const result = await contacts.updateContact(contactId, body, { new: true });
-  // if (!body) {
-  //   throw HttpError(400, "missing fields");
-  // }
+  const result = await Contact.findByIdAndUpdate(contactId, body, {
+    new: true,
+  });
+
+  if (!result) {
+    throw HttpError(404, "Not found");
+  }
+  res.json(result);
+};
+
+const updateStatusContact = async (req, res) => {
+  const { contactId } = req.params;
+  const body = req.body;
+  const result = await Contact.findByIdAndUpdate(contactId, body, {
+    new: true,
+  });
+
   if (!result) {
     throw HttpError(404, "Not found");
   }
@@ -54,4 +67,5 @@ module.exports = {
   add: ctrlWrapper(add),
   deleteById: ctrlWrapper(deleteById),
   updateById: ctrlWrapper(updateById),
+  updateStatusContact: ctrlWrapper(updateStatusContact),
 };
