@@ -8,7 +8,7 @@ const { validateBody, isValidId, authenticate } = require("../../middlewares");
 
 const { schemas } = require("../../models/contact");
 
-router.get("/", ctrl.getAll);
+router.get("/", authenticate, ctrl.getAll);
 
 router.get("/:contactId", authenticate, isValidId, ctrl.getById);
 

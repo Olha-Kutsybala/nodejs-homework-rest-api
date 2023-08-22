@@ -68,11 +68,23 @@ const logout = async (req, res) => {
 };
 
 const updateSubscription = async (req, res) => {
-  const { _id, subscription } = req.user;
+  const { _id } = req.user;
+  const { subscription } = req.body;
 
   const user = await User.findByIdAndUpdate(_id, subscription, { new: true });
 
   res.json({ email: user.email, subscription: user.subscription });
+
+  // const { contactId } = req.params;
+  // const body = req.body;
+  // const result = await Contact.findByIdAndUpdate(contactId, body, {
+  //   new: true,
+  // });
+
+  // if (!result) {
+  //   throw HttpError(404, "Not found");
+  // }
+  // res.json(result);
 };
 
 module.exports = {
