@@ -21,8 +21,7 @@ const register = async (req, res) => {
   });
 
   res.status(201).json({
-    email: newUser.email,
-    subscription: newUser.subscription,
+    user: { email: newUser.email, subscription: newUser.subscription },
   });
 };
 
@@ -71,10 +70,13 @@ const updateSubscription = async (req, res) => {
   const { _id } = req.user;
   const { subscription } = req.body;
 
-  const user = await User.findByIdAndUpdate(_id, subscription, { new: true });
+  const user = await User.findByIdAndUpdate(
+    _id,
+    { subscription },
+    { new: true }
+  );
 
-  // res.json({ email: user.email, subscription: user.subscription });
-  res.json(user);
+  return res.json({ subscription: user.subscription });
 };
 
 module.exports = {

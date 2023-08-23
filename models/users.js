@@ -36,19 +36,8 @@ const usersSchema = Joi.object({
   password: Joi.string()
     .min(6)
     .required()
-    .messages({ "any.required": "set password" }),
+    .messages({ "any.required": "missing required password field" }),
 });
-
-// const loginSchema = Joi.object({
-//   email: Joi.string()
-//     .pattern(emailRegexp)
-//     .required()
-//     .messages({ "any.required": "missing required email field" }),
-//   password: Joi.string()
-//     .min(6)
-//     .required()
-//     .messages({ "any.required": "set password" }),
-// });
 
 const emptyBody = Joi.object()
   .min(1)
@@ -62,8 +51,6 @@ const subscriptionSchema = Joi.object({
 });
 
 const schemas = {
-  // registerSchema,
-  // loginSchema,
   usersSchema,
   emptyBody,
   subscriptionSchema,

@@ -4,7 +4,6 @@ const { HttpError } = require("../helpers/HttpError");
 const { ctrlWrapper } = require("../helpers/ctrlWrapper");
 
 const getAll = async (req, res, next) => {
-  // const { _id: owner } = req.user;
   const owner = req.user._id;
   const { page = 1, limit = 20, ...query } = req.query;
   const skip = (page - 1) * limit;
