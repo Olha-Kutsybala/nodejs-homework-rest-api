@@ -45,10 +45,10 @@ const register = async (req, res) => {
   });
 };
 
-const verifyEmail = async (req, res) => {
-  const { verificationCode } = req.params;
-  const user = await User.findOne({ verificationCode });
-};
+// const verifyEmail = async (req, res) => {
+//   const { verificationCode } = req.params;
+//   const user = await User.findOne({ verificationCode });
+// };
 
 const login = async (req, res) => {
   const { email, password } = req.body;
