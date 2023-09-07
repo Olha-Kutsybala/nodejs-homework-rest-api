@@ -15,12 +15,10 @@ router.post(
   ctrl.register
 );
 
-router.get("/verify/:verificationToken ", ctrl.verifyEmail);
+router.get("/verify/:verificationToken", ctrl.verifyEmail);
 
 router.post(
   "/verify",
-  validateBody(schemas.emptyBody),
-  validateBody(schemas.usersSchema),
   validateBody(schemas.emailSchema),
   ctrl.resendVerifyEmail
 );
